@@ -28,16 +28,16 @@ class Character:
             self.y += 5
             self.y = min(self.y, self.max_y)
 
-    def check_collision(self, other):
-        character_rect = self.image.get_rect()
-        character_rect.x = self.x
-        character_rect.y = self.y
+    def check_collision(self, object):
+        character_position = self.image.get_rect()
+        character_position.x = self.x
+        character_position.y = self.y
 
-        other_rect = other.image.get_rect()
-        other_rect.x = other.x
-        other_rect.y = other.y
+        object_position = object.image.get_rect()
+        object_position.x = object.x
+        object_position.y = object.y
 
-        return character_rect.colliderect(other_rect)
+        return character_position.colliderect(object_position)
 
     def rollback_movement(self):
         self.x = self.prev_x
