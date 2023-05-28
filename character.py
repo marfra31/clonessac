@@ -7,24 +7,24 @@ class Character:
         self.y = y
         self.prev_x = x
         self.prev_y = y
-        self.min_x = 20
-        self.max_x = width - self.image.get_width()-20
-        self.min_y = 20
-        self.max_y = height - self.image.get_height()-20
+        self.min_x = 75
+        self.max_x = width - self.image.get_width()-75
+        self.min_y = 175
+        self.max_y = height - self.image.get_height()-75
     def handle_movement(self, keys):
         self.prev_x = self.x
         self.prev_y = self.y
 
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_a]:
             self.x -= 5
             self.x = max(self.x, self.min_x)
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_d]:
             self.x += 5
             self.x = min(self.x, self.max_x)
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_w]:
             self.y -= 5
             self.y = max(self.y, self.min_y)
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_s]:
             self.y += 5
             self.y = min(self.y, self.max_y)
 
