@@ -11,9 +11,9 @@ FPS=60
 
 character = Character("Images/Faceset.png", 100, 300, width, height)
 
-rock=Object("Images/rock1.png", 80, 180)
-rock2=Object("Images/rock2.png", 75, 470)
-rock3=Object("Images/rock1.png", 670, 180)
+rock=Object("Images/rock1.png", 80, 175)
+rock2=Object("Images/rock2.png", 80, 470)
+rock3=Object("Images/rock1.png", 675, 175)
 rock4=Object("Images/rock2.png", 670, 470)
 rock5=Object("Images/rock1.png", 375, 300)
 listOfObjects=[rock,rock2,rock3,rock4,rock5] 
