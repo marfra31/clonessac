@@ -6,6 +6,7 @@ from objects import Object
 pygame.init()
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Clonessac")
 room = Room("Images/game.png")
 FPS=60
 
