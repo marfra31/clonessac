@@ -7,39 +7,43 @@ pygame.init()
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Clonessac")
-room = Room("Images/game.png")
 FPS=60
+def main():
+    room = Room("Images/game.png")
 
-character = Character("Images/Faceset.png", 100, 300, width, height)
+    character = Character("Images/Faceset.png", 100, 300, width, height)
 
-rock=Object("Images/rock1.png", 80, 175)
-rock2=Object("Images/rock2.png", 80, 470)
-rock3=Object("Images/rock1.png", 675, 175)
-rock4=Object("Images/rock2.png", 670, 470)
-rock5=Object("Images/rock1.png", 375, 300)
-listOfObjects=[rock,rock2,rock3,rock4,rock5] 
+    rock=Object("Images/rock1.png", 80, 175)
+    rock2=Object("Images/rock2.png", 80, 470)
+    rock3=Object("Images/rock1.png", 675, 175)
+    rock4=Object("Images/rock2.png", 670, 470)
+    rock5=Object("Images/rock1.png", 375, 300)
+    listOfObjects=[rock,rock2,rock3,rock4,rock5] 
 
-running = True
-clock=pygame.time.Clock()
+    running = True
+    clock=pygame.time.Clock()
 
-while running:
-    clock.tick(FPS)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    while running:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-    keys = pygame.key.get_pressed()
-    character.handle_movement(keys)
-    for item in listOfObjects:
-        if character.check_collision(item):
-            character.rollback_movement()
+        keys = pygame.key.get_pressed()
+        character.handle_movement(keys)
+        for item in listOfObjects:
+            if character.check_collision(item):
+                character.rollback_movement()
 
-    screen.fill((0, 0, 0))
-    room.draw(screen)
-    character.draw(screen)
-    for item in listOfObjects:
-        item.draw(screen)
-    pygame.display.flip()
+        screen.fill((0, 0, 0))
+        room.draw(screen)
+        character.draw(screen)
+        for item in listOfObjects:
+            item.draw(screen)
+        pygame.display.flip()
 
-pygame.quit()
+    pygame.quit()
 
+#miejsce na wstawienie menu do osobnej funkcji,a potem uruchomic main    
+if __name__=="__main__":
+    main()
