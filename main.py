@@ -37,6 +37,8 @@ def main():
                 character.rollback_movement()
             if enemy.check_collision(item):
                 enemy.rollback_movement()
+        if character.check_collision_enemy(enemy):
+            character.rollback_movement()
         if enemy.check_collision_character(character):
             enemy.rollback_movement()
         enemy.move(character.x,character.y)

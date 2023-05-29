@@ -39,6 +39,16 @@ class Character:
 
         return character_position.colliderect(object_position)
 
+    def check_collision_enemy(self, enemy):
+        character_position = self.image.get_rect()
+        character_position.x = self.x
+        character_position.y = self.y
+
+        enemy_position = enemy.image.get_rect()
+        enemy_position.x = enemy.x
+        enemy_position.y = enemy.y
+
+        return character_position.colliderect(enemy_position)
     def rollback_movement(self):
         self.x = self.prev_x
         self.y = self.prev_y
