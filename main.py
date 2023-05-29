@@ -11,8 +11,8 @@ pygame.display.set_caption("Clonessac")
 FPS=60
 def main():
     room = Room("Images/game.png")
-    enemy = Enemy("Images/Faceset.png", 200, 300, width, height)
-    character = Character("Images/Faceset.png", 100, 300, width, height)
+    enemy = Enemy("Images/Enemy.png", 500, 300, width, height)
+    character = Character("Images/Character.png", 100, 300, width, height)
 
     rock=Object("Images/rock1.png", 80, 175)
     rock2=Object("Images/rock2.png", 80, 470)
@@ -37,6 +37,8 @@ def main():
                 character.rollback_movement()
             if enemy.check_collision(item):
                 enemy.rollback_movement()
+        if enemy.check_collision_character(character):
+            enemy.rollback_movement()
         enemy.move(character.x,character.y)
         screen.fill((0, 0, 0))
         room.draw(screen)

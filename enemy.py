@@ -31,7 +31,18 @@ class Enemy:
             self.y -= 2
             self.y = max(self.y, self.min_y)
 
-    def check_collision(self, character):
+    def check_collision(self, object):
+        enemy_position = self.image.get_rect()
+        enemy_position.x = self.x
+        enemy_position.y = self.y
+
+        object_position = object.image.get_rect()
+        object_position.x = object.x
+        object_position.y = object.y
+
+        return enemy_position.colliderect(object_position)
+
+    def check_collision_character(self, character):
         enemy_position = self.image.get_rect()
         enemy_position.x = self.x
         enemy_position.y = self.y
@@ -41,7 +52,6 @@ class Enemy:
         character_position.y = character.y
 
         return enemy_position.colliderect(character_position)
-
     def rollback_movement(self):
         self.x = self.prev_x
         self.y = self.prev_y
