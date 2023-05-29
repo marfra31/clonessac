@@ -1,43 +1,17 @@
 import pygame, sys
 from button import Button
+from main import main
 
 pygame.init()
 
-SCREEN = pygame.display.set_mode((1280, 719))
+SCREEN = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Gra")
 
 BG = pygame.image.load("tlomenu.png")
 
-nie wi
+
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("font.ttf", size)
-
-
-def play():
-    while True:
-        PLAY_MOUSE_POS = pygame.mouse.get_pos()
-
-        SCREEN.fill("black")
-
-        PLAY_TEXT = get_font(45).render("Tutaj trzeba wstawic kodzik gry.", True, "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
-
-        PLAY_BACK = Button(image=None, pos=(640, 460),
-                           text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
-
-        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-        PLAY_BACK.update(SCREEN)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                    main_menu()
-
-        pygame.display.update()
 
 
 # def options():
@@ -95,7 +69,7 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    play()
+                    main()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
