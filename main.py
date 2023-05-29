@@ -2,6 +2,7 @@ import pygame
 from room import Room
 from character import Character
 from objects import Object
+from enemy import Enemy
 
 pygame.init()
 width, height = 800, 600
@@ -10,7 +11,7 @@ pygame.display.set_caption("Clonessac")
 FPS=60
 def main():
     room = Room("Images/game.png")
-
+    enemy = Enemy("Images/Faceset.png", 200, 300, width, height)
     character = Character("Images/Faceset.png", 100, 300, width, height)
 
     rock=Object("Images/rock1.png", 80, 175)
@@ -34,10 +35,13 @@ def main():
         for item in listOfObjects:
             if character.check_collision(item):
                 character.rollback_movement()
-
+            if enemy.check_collision(item):
+                enemy.rollback_movement()
+        enemy.move(character.x,character.y)
         screen.fill((0, 0, 0))
         room.draw(screen)
         character.draw(screen)
+        enemy.draw(screen)
         for item in listOfObjects:
             item.draw(screen)
         pygame.display.flip()

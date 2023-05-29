@@ -15,6 +15,8 @@ class Enemy:
         self.max_y = height - self.image.get_height() - 75
 
     def move(self, target_x, target_y):
+        self.prev_x=self.x
+        self.prev_y=self.y
         if self.x < target_x:
             self.x += 2
             self.x = min(self.x, self.max_x)
