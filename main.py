@@ -1,4 +1,5 @@
 import pygame, sys
+from button import Button
 from room import Room
 from character import Character
 from objects import Object
