@@ -1,11 +1,11 @@
 import pygame, sys
 from button import Button
-from main import play
+
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("font.ttf", size)
 
-def main_menu():
+def main_menu(play):
     pygame.init()
 
     SCREEN = pygame.display.set_mode((1280, 719))

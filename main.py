@@ -4,7 +4,7 @@ from room import Room
 from character import Character
 from objects import Object
 from enemy import Enemy
-from menu import *
+from menu import main_menu
 
 
 
@@ -12,10 +12,13 @@ def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("font.ttf", size)
 
 
-def play():
-    pygame.init()
+def play(fullscreen=True):
     width, height = 800, 600
-    screen = pygame.display.set_mode((width, height),pygame.FULLSCREEN)
+    if fullscreen:
+        screen = pygame.display.set_mode((width, height),pygame.FULLSCREEN)
+    else:
+        screen = pygame.display.set_mode((width, height))
+    pygame.init()
     pygame.display.set_caption("Clonessac")
     FPS = 60
 
@@ -64,7 +67,7 @@ def play():
 
 
 if __name__ == "__main__":
-    main_menu()
+    main_menu(play)
 
 
 
