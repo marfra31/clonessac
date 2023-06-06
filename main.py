@@ -15,7 +15,7 @@ def get_font(size):  # Returns Press-Start-2P in the desired size
 def play():
     pygame.init()
     width, height = 800, 600
-    screen = pygame.display.set_mode((width, height))
+    screen = pygame.display.set_mode((width, height),pygame.FULLSCREEN)
     pygame.display.set_caption("Clonessac")
     FPS = 60
 
