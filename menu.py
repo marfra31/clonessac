@@ -3,7 +3,7 @@ from button import Button
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("font.ttf", size)
+    return pygame.font.Font("Images/font.ttf", size)
 
 def main_menu(play):
     pygame.init()
@@ -11,7 +11,7 @@ def main_menu(play):
     SCREEN = pygame.display.set_mode((1280, 719))
     pygame.display.set_caption("Gra")
 
-    BG = pygame.image.load("tlomenu.png")
+    BG = pygame.image.load("Images/tlomenu.png")
     while True:
         SCREEN.blit(BG, (0, 0))
 
@@ -20,9 +20,9 @@ def main_menu(play):
         MENU_TEXT = get_font(100).render("GRA TYPU ZELDA", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("Play Rect.png"), pos=(640, 300),
+        PLAY_BUTTON = Button(image=pygame.image.load("Images/Play Rect.png"), pos=(640, 300),
                              text_input="GRAJ", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("Options Rect.png"), pos=(640, 450),
+        QUIT_BUTTON = Button(image=pygame.image.load("Images/Options Rect.png"), pos=(640, 450),
                              text_input="WYJŚCIE", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)

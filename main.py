@@ -5,15 +5,14 @@ from character import Character
 from objects import Object
 from enemy import Enemy
 from menu import main_menu
-
-
+from debug import debug
+from settings import *
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("font.ttf", size)
 
 
 def play(fullscreen=True):
-    width, height = 800, 600
     if fullscreen:
         screen = pygame.display.set_mode((width, height),pygame.FULLSCREEN)
     else:
@@ -23,15 +22,15 @@ def play(fullscreen=True):
     FPS = 60
 
     room = Room("Images/game.png")
-    enemy = Enemy("Images/Enemy.png", 500, 300, width, height)
-    character = Character("Images/Character.png", 100, 300, width, height)
+    enemy = Enemy("Images/Enemy.png", 500, 300)
+    character = Character("Images/Character.png", 100, 300)
 
-    rock = Object("Images/rock1.png", 80, 175)
-    rock2 = Object("Images/rock2.png", 80, 470)
-    rock3 = Object("Images/rock1.png", 675, 175)
-    rock4 = Object("Images/rock2.png", 670, 470)
-    rock5 = Object("Images/rock1.png", 375, 300)
-    listOfObjects = [rock, rock2, rock3, rock4, rock5]
+    # rock = Object("Images/rock.png", 80, 175)
+    # rock2 = Object("Images/rock2.png", 80, 470)
+    # rock3 = Object("Images/rock.png", 675, 175)
+    # rock4 = Object("Images/rock2.png", 670, 470)
+    # rock5 = Object("Images/rock.png", 375, 300)
+    # listOfObjects = [rock, rock2, rock3, rock4, rock5]
 
     running = True
     clock = pygame.time.Clock()
@@ -44,7 +43,7 @@ def play(fullscreen=True):
 
         keys = pygame.key.get_pressed()
         character.handle_movement(keys)
-        for item in listOfObjects:
+        for item in pygame.sprite.Group():
             if character.check_collision(item):
                 character.rollback_movement()
             if enemy.check_collision(item):
@@ -58,8 +57,10 @@ def play(fullscreen=True):
         room.draw(screen)
         character.draw(screen)
         enemy.draw(screen)
-        for item in listOfObjects:
-            item.draw(screen)
+        room.run()
+        # for item in listOfObjects:
+        #     item.draw(screen)
+        debug([character.x,character.y])
         pygame.display.flip()
 
     pygame.quit()

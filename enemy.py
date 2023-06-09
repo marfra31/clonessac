@@ -1,7 +1,8 @@
 import pygame
+from settings import *
 
 class Enemy:
-    def __init__(self, image_path, x, y, width, height):
+    def __init__(self, image_path, x, y):
         self.image = pygame.image.load(image_path)
         self.x = x
         self.y = y
