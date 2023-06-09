@@ -38,6 +38,7 @@ def play(fullscreen=False):
     clock = pygame.time.Clock()
     bullets = []
     last_bullet = 0
+    enemy_hit = 0
 
     while running:
         clock.tick(FPS)
@@ -74,10 +75,10 @@ def play(fullscreen=False):
             #         print("zabij sie")
 
         if enemy.check_collision(character):
-            # Kolizja enemy z character oznacza utratę życia przez character.
-            # teraz jest instant death zamiast kolejkowania dmg
-            # character.getting_hit()
-            # 
+            if time() - enemy_hit > 1:
+                character.getting_hit()
+                enemy_hit = time()
+                print(character.hp)
             enemy.rollback_movement()
 
         enemy.move(character.x, character.y)
@@ -93,6 +94,10 @@ def play(fullscreen=False):
                 bullet.draw(screen)
             else:
                 bullets.remove(bullet)
+
+        if character.hp == 0:
+            main_menu(play)
+            # co gra ma robić jak umrzemy?
 
         pygame.display.flip()
 
