@@ -12,7 +12,7 @@ class Game:
             self.screen = pygame.display.set_mode((width, height),pygame.FULLSCREEN)
         else:
             self.screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption('Zelda')
+        pygame.display.set_caption('Clonessac')
         self.clock = pygame.time.Clock()
 
         self.level = Room("Images/game.png")
