@@ -3,8 +3,8 @@ from dynamicobject import DynamicObject
 
 class Enemy(DynamicObject):
 
-    def __init__(self, width: int, height: int, image_path: str, x: int, y: int, v:int):
-        super().__init__(width, height, image_path, x, y, v)
+    def __init__(self, width: int, height: int, image_path: str, x: int, y: int, v: int, hp: int):
+        super().__init__(width, height, image_path, x, y, v, hp)
         self.prev_x = x
         self.prev_y = y
 
@@ -20,3 +20,4 @@ class Enemy(DynamicObject):
         elif self.y > target_y:
             self.y -= self.velocity
         self.borderlize()
+

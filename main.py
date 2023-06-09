@@ -22,8 +22,9 @@ def play(fullscreen=False):
     FPS = 60
 
     room = Room("Images/game.png")
-    enemy = Enemy(width, height, "Images/Enemy.png", 500, 300, 3)
-    character = Character(width, height, "Images/Character.png", 100, 300, 5)
+    enemy = Enemy(width, height, "Images/Enemy.png", 500, 300, 3, hp=3)
+    character = Character(
+        width, height, "Images/Character.png", 100, 300, 5, 5)
 
     listOfObjects = [
         StaticObject("Images/rock1.png", 80, 175),
@@ -44,7 +45,6 @@ def play(fullscreen=False):
             if event.type == pygame.QUIT:
                 running = False
 
-        print(bullets)
         keys = pygame.key.get_pressed()
         character.handle_movement(keys)
         if len(bullets) < 3:
@@ -56,16 +56,30 @@ def play(fullscreen=False):
 
         for item in listOfObjects:
             for bullet in bullets:
-                if bullet.check_collision(item) or bullet.check_collision(enemy):
+                if bullet.check_collision(item):
                     bullets.remove(bullet)
             if character.check_collision(item):
                 character.rollback_movement()
             if enemy.check_collision(item):
                 enemy.rollback_movement()
-        if character.check_collision(enemy):
-            character.rollback_movement()
+        for bullet in bullets:
+            if bullet.check_collision(enemy):
+                bullets.remove(bullet)
+                enemy.getting_hit()
+                print(enemy.hp)
+            # if enemy.alive() == False:
+            """
+            miejsce na ewentualne otwieranie drzwi/loot/końcowy ekran
+            """
+            #         print("zabij sie")
+
         if enemy.check_collision(character):
+            # Kolizja enemy z character oznacza utratę życia przez character.
+            # teraz jest instant death zamiast kolejkowania dmg
+            # character.getting_hit()
+            # 
             enemy.rollback_movement()
+
         enemy.move(character.x, character.y)
         screen.fill((0, 0, 0))
         room.draw(screen)
@@ -75,9 +89,11 @@ def play(fullscreen=False):
             item.draw(screen)
         for bullet in bullets:
             if bullet.move():
-                bullets.remove(bullet)
-            else:
+
                 bullet.draw(screen)
+            else:
+                bullets.remove(bullet)
+
         pygame.display.flip()
 
     pygame.quit()

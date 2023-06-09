@@ -5,8 +5,8 @@ from dynamicobject import DynamicObject
 
 class Character(DynamicObject):
 
-    def __init__(self, width: int, height: int, image_path: str, x: int, y: int, v: int):
-        super().__init__(width, height, image_path, x, y, v)
+    def __init__(self, width: int, height: int, image_path: str, x: int, y: int, v: int, hp: int):
+        super().__init__(width, height, image_path, x, y, v, hp)
         self.prev_x = x
         self.prev_y = y
 
@@ -40,5 +40,5 @@ class Character(DynamicObject):
             w = self.image.get_rect().width
             x = self.x+h/2+dx*h/2
             y = self.y+w/2+dy*w/2
-            return Bullet(self.width, self.height, x, y, dx, dy, 1)
+            return Bullet(self.width, self.height, x, y, dx, dy, 3, 1)
         return None
