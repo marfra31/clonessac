@@ -49,8 +49,8 @@ class Enemy:
         enemy_position.y = self.y
 
         character_position = character.image.get_rect()
-        character_position.x = character.x
-        character_position.y = character.y
+        character_position.x = character.rect.x
+        character_position.y = character.rect.y
 
         return enemy_position.colliderect(character_position)
     def rollback_movement(self):
