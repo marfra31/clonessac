@@ -1,7 +1,9 @@
 import pygame
 
-class Object:
-    def __init__(self, image_path, x, y):
+
+class StaticObject():
+
+    def __init__(self, image_path: str, x: int, y: int):
         self.image = pygame.image.load(image_path)
         self.x = x
         self.y = y

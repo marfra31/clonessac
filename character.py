@@ -1,57 +1,44 @@
 import pygame
+from bullet import Bullet
+from dynamicobject import DynamicObject
 
-class Character:
-    def __init__(self, image_path, x, y,width,height):
-        self.image = pygame.image.load(image_path)
-        self.x = x
-        self.y = y
+
+class Character(DynamicObject):
+
+    def __init__(self, width: int, height: int, image_path: str, x: int, y: int, v: int):
+        super().__init__(width, height, image_path, x, y, v)
         self.prev_x = x
         self.prev_y = y
-        self.min_x = 75
-        self.max_x = width - self.image.get_width()-75
-        self.min_y = 175
-        self.max_y = height - self.image.get_height()-75
+
     def handle_movement(self, keys):
         self.prev_x = self.x
         self.prev_y = self.y
 
         if keys[pygame.K_a]:
-            self.x -= 5
-            self.x = max(self.x, self.min_x)
+            self.x -= self.velocity
         if keys[pygame.K_d]:
-            self.x += 5
-            self.x = min(self.x, self.max_x)
+            self.x += self.velocity
         if keys[pygame.K_w]:
-            self.y -= 5
-            self.y = max(self.y, self.min_y)
+            self.y -= self.velocity
         if keys[pygame.K_s]:
-            self.y += 5
-            self.y = min(self.y, self.max_y)
+            self.y += self.velocity
 
-    def check_collision(self, object):
-        character_position = self.image.get_rect()
-        character_position.x = self.x
-        character_position.y = self.y
+        self.borderlize()
 
-        object_position = object.image.get_rect()
-        object_position.x = object.x
-        object_position.y = object.y
-
-        return character_position.colliderect(object_position)
-
-    def check_collision_enemy(self, enemy):
-        character_position = self.image.get_rect()
-        character_position.x = self.x
-        character_position.y = self.y
-
-        enemy_position = enemy.image.get_rect()
-        enemy_position.x = enemy.x
-        enemy_position.y = enemy.y
-
-        return character_position.colliderect(enemy_position)
-    def rollback_movement(self):
-        self.x = self.prev_x
-        self.y = self.prev_y
-
-    def draw(self, screen):
-        screen.blit(self.image, (self.x, self.y))
+    def bullet(self, keys) -> None | Bullet:
+        dx, dy = 0, 0
+        if keys[pygame.K_RIGHT]:
+            dx = 1
+        elif keys[pygame.K_LEFT]:
+            dx = -1
+        elif keys[pygame.K_UP]:
+            dy = -1
+        elif keys[pygame.K_DOWN]:
+            dy = 1
+        if dx != 0 or dy != 0:
+            h = self.image.get_rect().height
+            w = self.image.get_rect().width
+            x = self.x+h/2+dx*h/2
+            y = self.y+w/2+dy*w/2
+            return Bullet(self.width, self.height, x, y, dx, dy, 1)
+        return None

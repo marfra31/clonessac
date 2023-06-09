@@ -1,21 +1,20 @@
-import pygame, sys
-from button import Button
+import pygame
 from room import Room
 from character import Character
-from objects import Object
+from staticobject import StaticObject
 from enemy import Enemy
 from menu import main_menu
-
+from time import time
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("font.ttf", size)
 
 
-def play(fullscreen=True):
+def play(fullscreen=False):
     width, height = 800, 600
     if fullscreen:
-        screen = pygame.display.set_mode((width, height),pygame.FULLSCREEN)
+        screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
     else:
         screen = pygame.display.set_mode((width, height))
     pygame.init()
@@ -23,18 +22,21 @@ def play(fullscreen=True):
     FPS = 60
 
     room = Room("Images/game.png")
-    enemy = Enemy("Images/Enemy.png", 500, 300, width, height)
-    character = Character("Images/Character.png", 100, 300, width, height)
+    enemy = Enemy(width, height, "Images/Enemy.png", 500, 300, 3)
+    character = Character(width, height, "Images/Character.png", 100, 300, 5)
 
-    rock = Object("Images/rock1.png", 80, 175)
-    rock2 = Object("Images/rock2.png", 80, 470)
-    rock3 = Object("Images/rock1.png", 675, 175)
-    rock4 = Object("Images/rock2.png", 670, 470)
-    rock5 = Object("Images/rock1.png", 375, 300)
-    listOfObjects = [rock, rock2, rock3, rock4, rock5]
+    listOfObjects = [
+        StaticObject("Images/rock1.png", 80, 175),
+        StaticObject("Images/rock2.png", 80, 470),
+        StaticObject("Images/rock1.png", 675, 175),
+        StaticObject("Images/rock2.png", 670, 470),
+        StaticObject("Images/rock1.png", 375, 300)
+    ]
 
     running = True
     clock = pygame.time.Clock()
+    bullets = []
+    last_bullet = 0
 
     while running:
         clock.tick(FPS)
@@ -42,16 +44,27 @@ def play(fullscreen=True):
             if event.type == pygame.QUIT:
                 running = False
 
+        print(bullets)
         keys = pygame.key.get_pressed()
         character.handle_movement(keys)
+        if len(bullets) < 3:
+            bullet = character.bullet(keys)
+            if bullet is not None:
+                if time() - last_bullet > 0.4:
+                    bullets.append(bullet)
+                    last_bullet = time()
+
         for item in listOfObjects:
+            for bullet in bullets:
+                if bullet.check_collision(item) or bullet.check_collision(enemy):
+                    bullets.remove(bullet)
             if character.check_collision(item):
                 character.rollback_movement()
             if enemy.check_collision(item):
                 enemy.rollback_movement()
-        if character.check_collision_enemy(enemy):
+        if character.check_collision(enemy):
             character.rollback_movement()
-        if enemy.check_collision_character(character):
+        if enemy.check_collision(character):
             enemy.rollback_movement()
         enemy.move(character.x, character.y)
         screen.fill((0, 0, 0))
@@ -60,17 +73,15 @@ def play(fullscreen=True):
         enemy.draw(screen)
         for item in listOfObjects:
             item.draw(screen)
+        for bullet in bullets:
+            if bullet.move():
+                bullets.remove(bullet)
+            else:
+                bullet.draw(screen)
         pygame.display.flip()
 
     pygame.quit()
 
 
-
 if __name__ == "__main__":
     main_menu(play)
-
-
-
-
-
-
