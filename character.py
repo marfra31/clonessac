@@ -61,7 +61,8 @@ class Character(pygame.sprite.Sprite):
                         self.rect.bottom = sprite.rect.top
                     if self.direction.y < 0: # moving up
                         self.rect.top = sprite.rect.bottom
-
+    def get_pos(self):
+        return [self.rect.x,self.rect.y]
 
     def update(self):
         self.input()
