@@ -15,7 +15,11 @@ class Enemy(pygame.sprite.Sprite):
         self.prev_y = self.rect.y
         self.width = width
         self.height = height
+
         self.speed= 3
+        self.hp=4
+
+
         self.min_x = 75
         self.max_x = width - self.image.get_width() - 75
         self.min_y = 175
@@ -81,27 +85,19 @@ class Enemy(pygame.sprite.Sprite):
         character_position=character.rect
         return character_position.colliderect(enemy_position)
 
-    # def check_collision_character(self, character):
-    #     enemy_position = self.image.get_rect()
-    #     enemy_position.x = self.rect.x
-    #     enemy_position.y = self.rect.y
-
-    #     character_position = character.image.get_rect()
-    #     character_position.x = character.rect.x
-    #     character_position.y = character.rect.y
-
-        # return enemy_position.colliderect(character_position)
     def collision_with_player(self,character):
         self.rect.x = self.prev_x
         self.rect.y = self.prev_y
         #tutaj kod który zabiera hp, np dodac do postaci hp i wykorzystać tu atrybut hp
 
+    def get_hit(self,damage=1):
+        self.hp-=damage
+        if self.hp<=0:
+            super().kill()
     def update(self,character):
         direction_xy=character.get_pos()
-        print(direction_xy, self.rect.x,self.rect.y)
         self.input(direction_xy[0],direction_xy[1])
         self.move(self.speed)
-        print(self.check_collision_character(character))
         if self.check_collision_character(character):
             self.collision_with_player(character)
 

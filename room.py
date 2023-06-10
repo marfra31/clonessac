@@ -22,7 +22,7 @@ class Room:
                 if col == 'r':
                     Object((x,y),"Images/rock.png",[self.visible_sprites,self.obstacle_sprites])
                 if col == 'p':
-                    self.character = Character((x,y),[self.visible_sprites],"Images/Character.png",self.obstacle_sprites)
+                    self.character = Character((x,y),[self.visible_sprites],"Images/Character.png",self.obstacle_sprites,self.enemy_sprites)
                 if col == 'e':
                     self.enemy=Enemy((x,y),[self.enemy_sprites],"Images/Enemy.png",self.obstacle_sprites,self.enemy_sprites)
                 # self.character=Character((x,y),"Images/rock.png",self.obstacle_sprites)
@@ -33,5 +33,6 @@ class Room:
         self.visible_sprites.update()
         self.enemy_sprites.draw(self.display_surface)
         self.enemy_sprites.update(self.character)
+        print(len(self.enemy_sprites))
 
         debug([self.character.direction,self.character.rect.x,self.character.rect.y])
