@@ -49,17 +49,17 @@ class Room:
         if len(self.enemy_sprites)==0:
             for door in self.doors_sprites:
                 if door.check_collision_character(self.character):
-                    print(123)
                     character_position=door.move_character()
                     self.character.go_trough_door(character_position[0],character_position[1])
-                    self.clear()                          
+                    self.room_clear()                          
                     self.update_room(UPDATE_MAP)
+        if self.character.dead():
+            pass          
+            # miejsce na menu jak umrzesz
 
-        # print(len(self.enemy_sprites))
+        debug([self.character.direction,self.character.rect.x,self.character.rect.y, self.character.hp])
 
-        debug([self.character.direction,self.character.rect.x,self.character.rect.y])
-
-    def clear(self):
+    def room_clear(self):
         for sprite in self.visible_sprites:
             if sprite.rect!=self.character.rect:
                 sprite.kill()

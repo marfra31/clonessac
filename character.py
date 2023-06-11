@@ -11,6 +11,7 @@ class Character(pygame.sprite.Sprite):
         self.enemy_sprites=enemy_sprites
         
         self.direction = pygame.math.Vector2()
+        self.hp=6
         self.speed = 5
         self.shot_speed=2
 
@@ -90,6 +91,16 @@ class Character(pygame.sprite.Sprite):
                         self.rect.top = sprite.rect.bottom
     def get_pos(self):
         return [self.rect.x,self.rect.y]
+    def get_hit(self,damage=1):
+            self.hp-=damage
+            if self.hp<=0:
+                super().kill()
+
+    def dead(self):
+        if self.hp<=0:
+            return True
+        else:
+            return False
     
     def go_trough_door(self,position_x,position_y):
         self.rect.x = 25+ position_x * TILESIZE
@@ -99,3 +110,4 @@ class Character(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
+        print(self.hp)
