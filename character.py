@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 from bullet import Bullet
+from time import time
 
 class Character(pygame.sprite.Sprite):
     def __init__(self, pos,groups, image_path,obstacle_sprites,enemy_sprites):
@@ -12,6 +13,7 @@ class Character(pygame.sprite.Sprite):
         
         self.direction = pygame.math.Vector2()
         self.hp=6
+        self.enemy_hit=0
         self.speed = 5
         self.shot_speed=2
 
@@ -91,6 +93,14 @@ class Character(pygame.sprite.Sprite):
                         self.rect.top = sprite.rect.bottom
     def get_pos(self):
         return [self.rect.x,self.rect.y]
+    def collision_enemy(self):
+        character_position = self.rect
+        for enemy in self.enemy_sprites:
+            if character_position.colliderect(enemy.rect):
+                if time() - self.enemy_hit > 1:
+                    if self.hp > 0:
+                        self.get_hit()
+                        self.enemy_hit = time()
     def get_hit(self,damage=1):
             self.hp-=damage
             if self.hp<=0:
@@ -110,4 +120,4 @@ class Character(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.move(self.speed)
-        print(self.hp)
+        self.collision_enemy()
