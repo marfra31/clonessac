@@ -16,6 +16,7 @@ class Room:
         self.doors_sprites=pygame.sprite.Group()
         self.update_room(MAP)
         self.create_character(MAP)
+        self.current_room=[4,4]
 
     def create_character(self,MAP):
         for row_index,row in enumerate(MAP):
@@ -49,6 +50,7 @@ class Room:
         if len(self.enemy_sprites)==0:
             for door in self.doors_sprites:
                 if door.check_collision_character(self.character):
+                    self.change_direction(door.direction)
                     character_position=door.move_character()
                     self.character.go_trough_door(character_position[0],character_position[1])
                     self.room_clear()                          
@@ -57,8 +59,18 @@ class Room:
             pass          
             # miejsce na menu jak umrzesz
 
-        debug([self.character.direction,self.character.rect.x,self.character.rect.y, self.character.hp])
-
+        debug([self.character.hp,self.current_room])
+    def draw_doors(self):
+        pass    
+    def change_direction(self,door_direction):
+            if door_direction=="N":
+                self.current_room[0]-=1           
+            if door_direction=="E":
+                self.current_room[1]+=1
+            if door_direction=="W":
+                self.current_room[1]-=1
+            if door_direction=="S":
+                self.current_room[0]+=1
     def room_clear(self):
         for sprite in self.visible_sprites:
             if sprite.rect!=self.character.rect:
