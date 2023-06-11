@@ -13,7 +13,17 @@ class Room:
         self.obstacle_sprites = pygame.sprite.Group()
         self.visible_sprites = pygame.sprite.Group()
         self.enemy_sprites=pygame.sprite.Group()
+        self.doors_sprites=pygame.sprite.Group()
         self.update_room(MAP)
+        self.create_character(MAP)
+
+    def create_character(self,MAP):
+        for row_index,row in enumerate(MAP):
+            for col_index, col in enumerate(row):
+                x = 25+col_index * TILESIZE
+                y = 125+row_index * TILESIZE
+                if col == 'p':
+                    self.character = Character((x,y),[self.visible_sprites],"Images/Character.png",self.obstacle_sprites,self.enemy_sprites)            
         
     def update_room(self,MAP):
         for row_index,row in enumerate(MAP):
@@ -21,13 +31,11 @@ class Room:
                 x = 25+col_index * TILESIZE
                 y = 125+row_index * TILESIZE
                 if col == 'N' or col == 'E' or col == 'W' or col == 'S': 
-                    self.door=Door((x,y),col,[self.visible_sprites],self.enemy_sprites)   
+                    self.door=Door((x,y),col,[self.visible_sprites,self.doors_sprites],self.enemy_sprites)   
                 elif col == '0':
                     Object((x,y),"Images/transparent.png",[self.obstacle_sprites])                                     
                 elif col == 'r':
                     Object((x,y),"Images/rock.png",[self.visible_sprites,self.obstacle_sprites])
-                elif col == 'p':
-                    self.character = Character((x,y),[self.visible_sprites],"Images/Character.png",self.obstacle_sprites,self.enemy_sprites)
                 elif col == 'e':
                     self.enemy=Enemy((x,y),[self.enemy_sprites],"Images/Enemy.png",self.obstacle_sprites,self.enemy_sprites)
                 # self.character=Character((x,y),"Images/rock.png",self.obstacle_sprites)
@@ -39,12 +47,23 @@ class Room:
         self.enemy_sprites.draw(self.display_surface)
         self.enemy_sprites.update(self.character)
         if len(self.enemy_sprites)==0:
-            if self.door.check_collision_character(self.character):
-                print(123)
-                character_position=self.door.move_character()
-                UPDATE_MAP[character_position[0]][character_position[1]]='p'
-                self.update_room(UPDATE_MAP)
+            for door in self.doors_sprites:
+                if door.check_collision_character(self.character):
+                    print(123)
+                    character_position=door.move_character()
+                    self.character.go_trough_door(character_position[0],character_position[1])
+                    self.clear()                          
+                    self.update_room(UPDATE_MAP)
 
         # print(len(self.enemy_sprites))
 
         debug([self.character.direction,self.character.rect.x,self.character.rect.y])
+
+    def clear(self):
+        for sprite in self.visible_sprites:
+            if sprite.rect!=self.character.rect:
+                sprite.kill()
+        for sprite in self.obstacle_sprites:
+            sprite.kill()    
+        for sprite in self.enemy_sprites:
+            sprite.kill()

@@ -12,10 +12,6 @@ class Door(pygame.sprite.Sprite):
         self.enemy_sprites=enemy_sprites
         self.pos=pos
 
-        if self.direction=="N" or self.direction=="S":
-            self.pos=(self.pos[0]-15,self.pos[1])
-        if self.direction=="E" or self.direction=="W":
-            self.pos=(self.pos[0],self.pos[1]-20)
                     
 
         self.rotate()
@@ -23,7 +19,7 @@ class Door(pygame.sprite.Sprite):
 
     def rotate(self):
         if self.direction=="N" or self.direction=="S":
-            self.pos=(self.pos[0],self.pos[1])
+            self.pos=(self.pos[0]-15,self.pos[1])
         if self.direction=="E" or self.direction=="W":
             self.pos=(self.pos[0],self.pos[1]-20)
 
@@ -42,11 +38,11 @@ class Door(pygame.sprite.Sprite):
             if self.direction=="N":
                 return [7,7]            
             if self.direction=="E":
-                return [4,1]
+                return [1,4]
             if self.direction=="W":
-                return [4,13]  
+                return [13,4]  
             if self.direction=="S":
-                return [1,7]  
+                return [7,1]  
 
 
     def update(self):

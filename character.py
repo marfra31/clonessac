@@ -90,6 +90,11 @@ class Character(pygame.sprite.Sprite):
                         self.rect.top = sprite.rect.bottom
     def get_pos(self):
         return [self.rect.x,self.rect.y]
+    
+    def go_trough_door(self,position_x,position_y):
+        self.rect.x = 25+ position_x * TILESIZE
+        self.rect.y = 125+ position_y* TILESIZE
+
 
     def update(self):
         self.input()
