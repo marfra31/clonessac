@@ -19,7 +19,6 @@ class Enemy(pygame.sprite.Sprite):
 
         self.speed= 3
         self.hp=4
-        self.enemy_hit=0
 
         self.min_x = 75
         self.max_x = width - self.image.get_width() - 75
@@ -90,10 +89,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = self.prev_x
         self.rect.y = self.prev_y
 
-        if time() - self.enemy_hit > 1:
+        if time() - character.enemy_hit > 1:
             if character.hp>0:
                 character.get_hit()
-            self.enemy_hit = time()
+            character.enemy_hit = time()
 
         #tutaj kod który zabiera hp, np dodac do postaci hp i wykorzystać tu atrybut hp
         

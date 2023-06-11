@@ -15,6 +15,8 @@ class Character(pygame.sprite.Sprite):
         self.speed = 5
         self.shot_speed=2
 
+        self.enemy_hit = 0
+
         self.bullet_activate_x=0
         self.bullet_activate_y=0
         self.groups=groups
