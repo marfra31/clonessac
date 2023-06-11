@@ -34,15 +34,16 @@ class Room:
                 if col == 'N' or col == 'E' or col == 'W' or col == 'S': 
                     self.door=Door((x,y),col,[self.visible_sprites,self.doors_sprites],self.enemy_sprites)   
                 elif col == '0':
-                    Object((x,y),"Images/transparent.png",[self.obstacle_sprites])                                     
+                    self.object=Object((x,y),"Images/transparent.png",[self.obstacle_sprites])                                     
                 elif col == 'r':
-                    Object((x,y),"Images/rock.png",[self.visible_sprites,self.obstacle_sprites])
+                    self.object=Object((x,y),"Images/rock.png",[self.visible_sprites,self.obstacle_sprites])
                 elif col == 'r2':
-                    Object((x,y),"Images/rock2.png",[self.visible_sprites,self.obstacle_sprites])   
+                    self.object=Object((x,y),"Images/rock2.png",[self.visible_sprites,self.obstacle_sprites])   
                 elif col == 'r3':
-                    Object((x,y),"Images/rock3.png",[self.visible_sprites,self.obstacle_sprites])  
+                    self.object=Object((x,y),"Images/rock3.png",[self.visible_sprites,self.obstacle_sprites])  
                 elif col == 'd':
-                    Object((x,y),"Images/dziura.png",[self.visible_sprites,self.obstacle_sprites])                                                           
+                    self.object = Object(
+                        (x, y), "Images/dziura.png", [self.visible_sprites, self.obstacle_sprites],True)
                 elif col == 'e':
                     self.enemy=Enemy((x,y),[self.enemy_sprites],"Images/Enemy.png",self.obstacle_sprites,self.enemy_sprites)
                 # self.character=Character((x,y),"Images/rock.png",self.obstacle_sprites)
@@ -56,7 +57,7 @@ class Room:
         if len(self.enemy_sprites)==0:
             for door in self.doors_sprites:
                 if door.check_collision_character(self.character):
-                    self.change_direction(door.direction)
+                    self.change_current_room(door.direction)
                     character_position=door.move_character()
                     self.character.go_trough_door(character_position[0],character_position[1])
                     self.room_clear()                          
@@ -68,7 +69,7 @@ class Room:
         debug([self.character.hp,self.current_room])
     def draw_doors(self):
         pass    
-    def change_direction(self,door_direction):
+    def change_current_room(self,door_direction):
             if door_direction=="N":
                 self.current_room[0]-=1           
             if door_direction=="E":
@@ -85,3 +86,4 @@ class Room:
             sprite.kill()    
         for sprite in self.enemy_sprites:
             sprite.kill()
+        del self.object

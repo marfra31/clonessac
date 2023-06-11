@@ -23,7 +23,7 @@ class Bullet(pygame.sprite.Sprite):
                 enemy.get_hit()
     def check_collision_obstacle(self):
         for object in self.obstacle_sprites:
-            if object.rect.colliderect(self.rect):
+            if object.rect.colliderect(self.rect) and not object.passable_for_bullet:
                 super().kill()        
     def move(self):
         if self.direction=="right":
