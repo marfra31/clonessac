@@ -13,15 +13,15 @@ class Room:
         self.obstacle_sprites = pygame.sprite.Group()
         self.visible_sprites = pygame.sprite.Group()
         self.enemy_sprites=pygame.sprite.Group()
-        self.update_room()
+        self.update_room(MAP)
         
-    def update_room(self):
+    def update_room(self,MAP):
         for row_index,row in enumerate(MAP):
             for col_index, col in enumerate(row):
                 x = 25+col_index * TILESIZE
                 y = 125+row_index * TILESIZE
                 if col == 'N' or col == 'E' or col == 'W' or col == 'S': 
-                    Door((x,y),col,[self.visible_sprites,self.obstacle_sprites],self.enemy_sprites)   
+                    self.door=Door((x,y),col,[self.visible_sprites],self.enemy_sprites)   
                 elif col == '0':
                     Object((x,y),"Images/transparent.png",[self.obstacle_sprites])                                     
                 elif col == 'r':
@@ -38,6 +38,13 @@ class Room:
         self.visible_sprites.update()
         self.enemy_sprites.draw(self.display_surface)
         self.enemy_sprites.update(self.character)
+        if len(self.enemy_sprites)==0:
+            if self.door.check_collision_character(self.character):
+                print(123)
+                character_position=self.door.move_character()
+                UPDATE_MAP[character_position[0]][character_position[1]]='p'
+                self.update_room(UPDATE_MAP)
+
         # print(len(self.enemy_sprites))
 
         debug([self.character.direction,self.character.rect.x,self.character.rect.y])

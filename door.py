@@ -7,7 +7,7 @@ class Door(pygame.sprite.Sprite):
         
         self.image = pygame.image.load("Images/closed_door.png").convert_alpha()
 
-        self.rect = self.image.get_rect(topleft = pos)
+        
         self.direction=direction
         self.enemy_sprites=enemy_sprites
         self.pos=pos
@@ -16,13 +16,14 @@ class Door(pygame.sprite.Sprite):
             self.pos=(self.pos[0]-15,self.pos[1])
         if self.direction=="E" or self.direction=="W":
             self.pos=(self.pos[0],self.pos[1]-20)
-        self.rect = self.image.get_rect(topleft = self.pos)            
+                    
 
         self.rotate()
+        self.rect = self.image.get_rect(topleft = self.pos)
 
     def rotate(self):
         if self.direction=="N" or self.direction=="S":
-            self.pos=(self.pos[0]-15,self.pos[1])
+            self.pos=(self.pos[0],self.pos[1])
         if self.direction=="E" or self.direction=="W":
             self.pos=(self.pos[0],self.pos[1]-20)
 
@@ -32,6 +33,21 @@ class Door(pygame.sprite.Sprite):
             self.image = pygame.transform.rotate(self.image, 90)
         if self.direction=="S":
             self.image = pygame.transform.rotate(self.image, 180)
+
+    def check_collision_character(self, character):
+        door_position = self.rect
+        character_position=character.rect
+        return character_position.colliderect(door_position)
+    def move_character(self):        
+            if self.direction=="N":
+                return [7,7]            
+            if self.direction=="E":
+                return [4,1]
+            if self.direction=="W":
+                return [4,13]  
+            if self.direction=="S":
+                return [1,7]  
+
 
     def update(self):
         if len(self.enemy_sprites)==0:
