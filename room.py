@@ -37,6 +37,12 @@ class Room:
                     Object((x,y),"Images/transparent.png",[self.obstacle_sprites])                                     
                 elif col == 'r':
                     Object((x,y),"Images/rock.png",[self.visible_sprites,self.obstacle_sprites])
+                elif col == 'r2':
+                    Object((x,y),"Images/rock2.png",[self.visible_sprites,self.obstacle_sprites])   
+                elif col == 'r3':
+                    Object((x,y),"Images/rock3.png",[self.visible_sprites,self.obstacle_sprites])  
+                elif col == 'd':
+                    Object((x,y),"Images/dziura.png",[self.visible_sprites,self.obstacle_sprites])                                                           
                 elif col == 'e':
                     self.enemy=Enemy((x,y),[self.enemy_sprites],"Images/Enemy.png",self.obstacle_sprites,self.enemy_sprites)
                 # self.character=Character((x,y),"Images/rock.png",self.obstacle_sprites)
