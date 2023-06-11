@@ -18,10 +18,10 @@ class Character(pygame.sprite.Sprite):
         self.bullet_activate_y=0
         self.groups=groups
 
-        self.min_x = 75
-        self.max_x = width - self.image.get_width()-75
-        self.min_y = 175
-        self.max_y = height - self.image.get_height()-75
+        self.min_x = 70
+        self.max_x = width - self.image.get_width()-80
+        self.min_y = 170
+        self.max_y = height - self.image.get_height()-80
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -76,6 +76,7 @@ class Character(pygame.sprite.Sprite):
         if direction == 'horizontal':
             for sprite in self.obstacle_sprites:
                 if sprite.rect.colliderect(self.rect):
+                    print("udalo sie")
                     if self.direction.x > 0: # moving right
                         self.rect.right = sprite.rect.left
                     if self.direction.x < 0: # moving left

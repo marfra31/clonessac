@@ -1,3 +1,4 @@
 from main import *
-game=Game(False)
+Fullscreen=False
+game=Game(Fullscreen)
 game.run()

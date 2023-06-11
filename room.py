@@ -4,6 +4,7 @@ from objects import Object
 from character import Character
 from debug import debug
 from enemy import Enemy
+from door import Door
 class Room:
     def __init__(self, background_image_path):
         self.display_surface = pygame.display.get_surface()
@@ -19,11 +20,15 @@ class Room:
             for col_index, col in enumerate(row):
                 x = 25+col_index * TILESIZE
                 y = 125+row_index * TILESIZE
-                if col == 'r':
+                if col == 'N' or col == 'E' or col == 'W' or col == 'S': 
+                    Door((x,y),col,[self.visible_sprites,self.obstacle_sprites],self.enemy_sprites)   
+                elif col == '0':
+                    Object((x,y),"Images/transparent.png",[self.obstacle_sprites])                                     
+                elif col == 'r':
                     Object((x,y),"Images/rock.png",[self.visible_sprites,self.obstacle_sprites])
-                if col == 'p':
+                elif col == 'p':
                     self.character = Character((x,y),[self.visible_sprites],"Images/Character.png",self.obstacle_sprites,self.enemy_sprites)
-                if col == 'e':
+                elif col == 'e':
                     self.enemy=Enemy((x,y),[self.enemy_sprites],"Images/Enemy.png",self.obstacle_sprites,self.enemy_sprites)
                 # self.character=Character((x,y),"Images/rock.png",self.obstacle_sprites)
     def run(self):
@@ -33,6 +38,6 @@ class Room:
         self.visible_sprites.update()
         self.enemy_sprites.draw(self.display_surface)
         self.enemy_sprites.update(self.character)
-        print(len(self.enemy_sprites))
+        # print(len(self.enemy_sprites))
 
         debug([self.character.direction,self.character.rect.x,self.character.rect.y])
