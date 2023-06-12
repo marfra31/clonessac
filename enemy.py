@@ -93,8 +93,8 @@ class Enemy(pygame.sprite.Sprite):
             if character.hp>0:
                 character.get_hit()
             character.enemy_hit = time()
+        # super().kill()
 
-        #tutaj kod który zabiera hp, np dodac do postaci hp i wykorzystać tu atrybut hp
         
     def get_hit(self,damage=1):
         self.hp-=damage

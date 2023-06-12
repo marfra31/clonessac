@@ -35,13 +35,13 @@ class Door(pygame.sprite.Sprite):
         character_position=character.rect
         return character_position.colliderect(door_position)
     def move_character(self):        
-            if self.direction=="N":
+            if self.direction=="N": #S=[8,7]
                 return [7,7]            
-            if self.direction=="E":
+            if self.direction=="E": #W=[0,4]
                 return [1,4]
-            if self.direction=="W":
+            if self.direction=="W": #E=[14,4]
                 return [13,4]  
-            if self.direction=="S":
+            if self.direction=="S": #W=[7,0]
                 return [7,1]  
 
 
