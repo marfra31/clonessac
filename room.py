@@ -257,13 +257,13 @@ class Room:
         else:
             if down_chance:
                 MAP_OF_WORLD[zero_position+1][one_position] = 'r'
-                return self.map_generator_north(zero_position+1, one_position)
+                return self.map_generator_east(zero_position+1, one_position)
             if right_chance:
                 MAP_OF_WORLD[zero_position][one_position+1] = 'r'
-                return self.map_generator_north(zero_position, one_position+1)
+                return self.map_generator_east(zero_position, one_position+1)
             if up_chance:
                 MAP_OF_WORLD[zero_position-1][one_position] = 'r'
-                return self.map_generator_north(zero_position-1, one_position)
+                return self.map_generator_east(zero_position-1, one_position)
             
 
     def map_generator_west(self, zero_position, one_position):
@@ -279,13 +279,13 @@ class Room:
         else:
             if left_chance:
                 MAP_OF_WORLD[zero_position][one_position-1] = 'r'
-                return self.map_generator_north(zero_position, one_position-1)
+                return self.map_generator_west(zero_position, one_position-1)
             if down_chance:
                 MAP_OF_WORLD[zero_position+1][one_position] = 'r'
-                return self.map_generator_north(zero_position+1, one_position)
+                return self.map_generator_west(zero_position+1, one_position)
             if up_chance:
                 MAP_OF_WORLD[zero_position-1][one_position] = 'r'
-                return self.map_generator_north(zero_position-1, one_position)
+                return self.map_generator_west(zero_position-1, one_position)
 
     def map_generator_south(self, zero_position, one_position):
         left_chance = bool(random.getrandbits(1))
@@ -300,13 +300,13 @@ class Room:
         else:
             if left_chance:
                 MAP_OF_WORLD[zero_position][one_position-1] = 'r'
-                return self.map_generator_north(zero_position, one_position-1)
+                return self.map_generator_south(zero_position, one_position-1)
             if down_chance:
                 MAP_OF_WORLD[zero_position+1][one_position] = 'r'
-                return self.map_generator_north(zero_position+1, one_position)
+                return self.map_generator_south(zero_position+1, one_position)
             if right_chance:
                 MAP_OF_WORLD[zero_position][one_position+1] = 'r'
-                return self.map_generator_north(zero_position, one_position+1)
+                return self.map_generator_south(zero_position, one_position+1)
     def map_room_count(self,map):
         count=0
         boss_count=0
