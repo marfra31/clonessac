@@ -1,7 +1,7 @@
 import pygame, sys
 from button import Button
 import os
-import pygame.locals import *
+from pygame.locals import *
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
@@ -12,7 +12,7 @@ def main_menu(play):
     
     SCREEN = pygame.display.set_mode((500,500), RESIZABLE)
 #     SCREEN = pygame.display.set_mode((1280, 719))
-    pic = pygame.image.load("tlomenu.png")
+    pic = pygame.image.load("Images/tlomenu.png")
     SCREEN.blit(pygame.transform.scale(pic, (500,500)), (0,0))
     pygame.display.flip()
     pygame.display.set_caption("Gra")
