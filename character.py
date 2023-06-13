@@ -11,7 +11,7 @@ class Character(pygame.sprite.Sprite):
         self.enemy_sprites=enemy_sprites
         
         self.direction = pygame.math.Vector2()
-        self.hp=6
+        self.hp=10
         self.speed = 5
         self.shot_speed=2
 
