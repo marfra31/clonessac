@@ -1,7 +1,5 @@
 import pygame, sys
 from button import Button
-import os
-import pygame.locals import *
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
@@ -9,12 +7,8 @@ def get_font(size):  # Returns Press-Start-2P in the desired size
 
 def main_menu(play):
     pygame.init()
-    
-    SCREEN = pygame.display.set_mode((500,500), RESIZABLE)
-#     SCREEN = pygame.display.set_mode((1280, 719))
-    pic = pygame.image.load("tlomenu.png")
-    SCREEN.blit(pygame.transform.scale(pic, (500,500)), (0,0))
-    pygame.display.flip()
+
+    SCREEN = pygame.display.set_mode((1280, 719))
     pygame.display.set_caption("Gra")
 
     BG = pygame.image.load("Images/tlomenu.png")
@@ -25,7 +19,6 @@ def main_menu(play):
 
         MENU_TEXT = get_font(100).render("GRA TYPU ZELDA", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
-        MENU_RECT = MENU_TEXT.get_rect(center=(SCREEN.get_width() // 2,100))
 
         PLAY_BUTTON = Button(image=pygame.image.load("Images/Play Rect.png"), pos=(640, 300),
                              text_input="GRAJ", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
@@ -48,10 +41,5 @@ def main_menu(play):
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
-            if event.type == VIDEORESIZE:
-                screen = pygame.display.set_mode(event.dict['size'], RESIZABLE)
-                screen.blit(pygame.transform.scale(pic, event.dict['size']), (0,0))
-                pygame.display.flip()
-
 
         pygame.display.update()
