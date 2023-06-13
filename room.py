@@ -131,6 +131,8 @@ class Room:
             sprite.kill()    
         for sprite in self.enemy_sprites:
             sprite.kill()
+        for sprite in self.boss_sprites:
+            sprite.kill()
         del self.object
 
     def enemy_killed_state(self):
