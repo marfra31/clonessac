@@ -3,7 +3,7 @@ from time import time
 from settings import *
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, pos,groups, image_path,obstacle_sprites,enemy_sprites):
+    def __init__(self, pos,groups, image_path,obstacle_sprites,enemy_sprites,hp=3):
         super().__init__(groups)
         self.image = pygame.image.load(image_path).convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
@@ -18,7 +18,7 @@ class Enemy(pygame.sprite.Sprite):
         self.height = height
 
         self.speed= 3
-        self.hp=4
+        self.hp=hp
 
         self.min_x = 75
         self.max_x = width - self.image.get_width() - 75

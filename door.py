@@ -4,9 +4,10 @@ class Door(pygame.sprite.Sprite):
     def __init__(self, pos,direction,groups,enemy_sprites):
     
         super().__init__(groups)
-        
-        self.image = pygame.image.load("Images/closed_door.png").convert_alpha()
-
+        if not direction=="Boss":
+            self.image = pygame.image.load("Images/closed_door.png").convert_alpha()
+        else:
+            self.image = pygame.image.load("Images/trophy.png").convert_alpha()
         
         self.direction=direction
         self.enemy_sprites=enemy_sprites
@@ -43,9 +44,14 @@ class Door(pygame.sprite.Sprite):
                 return [13,4]  
             if self.direction=="S": #W=[7,0]
                 return [7,1]  
+            
 
 
     def update(self):
         if len(self.enemy_sprites)==0:
-            self.image = pygame.image.load("Images/open_door.png").convert_alpha()
-            self.rotate()
+            if not self.direction == "Boss":
+                self.image = pygame.image.load("Images/open_door.png").convert_alpha()
+                self.rotate()
+            else:
+                self.image=pygame.image.load("Images/trophy.png").convert_alpha()
+                self.rect = self.image.get_rect(topleft=self.pos)
