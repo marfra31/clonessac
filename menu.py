@@ -1,6 +1,7 @@
 import pygame, sys
 from button import Button
-
+import os
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("Images/font.ttf", size)
