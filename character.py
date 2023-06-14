@@ -1,4 +1,4 @@
-import pygame
+import pygame,sys
 from settings import *
 from bullet import Bullet
 
@@ -97,7 +97,9 @@ class Character(pygame.sprite.Sprite):
             self.hp-=damage
             if self.hp<=0:
                 super().kill()
-
+                print('przgrałeś')
+                pygame.quit()
+                sys.exit()
     def dead(self):
         if self.hp<=0:
             return True

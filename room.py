@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 import random
 from settings import *
 from objects import Object
@@ -27,6 +27,7 @@ class Room:
         self.create_character(MAP)
         for row in MAP_OF_WORLD:
             print(row)
+        self.trophy=0
         
 
     def create_character(self,map):
@@ -68,10 +69,9 @@ class Room:
         self.enemy_sprites.draw(self.display_surface)
         self.enemy_sprites.update(self.character)
         if len(self.enemy_sprites)==0:
-            trophy=0
-            if MAP_OF_WORLD[self.current_room[0]][self.current_room[1]]=='b' and trophy==0: #4,7
+            if MAP_OF_WORLD[self.current_room[0]][self.current_room[1]]=='b' and self.trophy==0: #4,7
                 Door((200,450), "Boss", [self.visible_sprites,self.boss_sprites], self.enemy_sprites)
-                trophy+=1
+                self.trophy+=1
             for door in self.boss_sprites:
                 if door.check_collision_character(self.character):
                     self.enemy_killed_state()
@@ -85,7 +85,7 @@ class Room:
                     self.room_clear()               
                     self.update_room(MAP_OF_ROOMS[self.current_room[0]][self.current_room[1]])
         if self.character.dead():
-            pass          
+            pass
             # miejsce na menu jak umrzesz
         mapa = MAP_OF_ROOMS[self.current_room[0]][self.current_room[1]]
         debug([self.character.hp,self.current_room,mapa[0][0]])
@@ -123,6 +123,11 @@ class Room:
                 self.current_room[0]+=1
             if door_direction=="Boss":
                 self.character.kill()
+                print('wygrałeś')
+                pygame.quit()
+                sys.exit()
+
+
     def room_clear(self):
         for sprite in self.visible_sprites:
             if sprite.rect!=self.character.rect:
@@ -134,6 +139,7 @@ class Room:
         for sprite in self.boss_sprites:
             sprite.kill()
         del self.object
+        self.trophy = 0
 
     def enemy_killed_state(self):
         temp_map=copy.deepcopy(MAP_OF_ROOMS[self.current_room[0]][self.current_room[1]])
@@ -165,7 +171,7 @@ class Room:
             map[element[0]][element[1]] = object
 
     def random_room(self,temp_map,normal_room=True):
-        object = ['r', 'r2', 'r3', 'd', '', '', '', '', '', '', '', '', '']
+        object = ['r', 'r2', 'r3', 'd', '', '', '', '', '','']
 
         corner_object_furthest = random.choice(object)
         map_of_cof = [[1, 1], [1, 13], [7, 13], [7, 1]]
